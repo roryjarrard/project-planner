@@ -7,7 +7,9 @@
         <span @click="deleteProject" class="material-symbols-outlined">
           delete
         </span>
-        <span class="material-symbols-outlined"> done </span>
+        <span @click="toggleComplete" class="material-symbols-outlined">
+          done
+        </span>
       </div>
     </div>
     <div v-if="showDetails" class="details">
@@ -29,7 +31,7 @@ export default {
   data() {
     return {
       showDetails: false,
-      uri: "http://localhost:3000/projects/" + this.project.id,
+      uri: `http://localhost:3000/projects/${this.project.id}`,
     };
   },
 
@@ -42,6 +44,18 @@ export default {
       fetch(this.uri, { method: "DELETE" }).then(() =>
         this.$emit("delete", this.project.id)
       );
+    },
+
+    toggleComplete() {
+      fetch(this.uri, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ complete: !this.project.complete }),
+      })
+        .then(() => this.$emit("complete", this.project.id))
+        .catch((err) => console.error("Error:", err));
     },
   },
 };
