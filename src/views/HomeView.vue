@@ -1,12 +1,37 @@
 <template>
-  <div class="home">Home</div>
+  <div class="home">
+    <div v-if="projects.length">
+      <h1>Projects</h1>
+
+      <div v-for="project in projects" :key="project.id">
+        <SingleProject :project="project" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
+import SingleProject from "@/components/SingleProject.vue";
 
 export default {
   name: "HomeView",
-  components: {},
+
+  components: { SingleProject },
+
+  data() {
+    return {
+      projects: [],
+    };
+  },
+
+  mounted() {
+    fetch("http://localhost:3000/projects")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.projects = data;
+      })
+      .catch((err) => console.error("Error:", err));
+  },
 };
 </script>

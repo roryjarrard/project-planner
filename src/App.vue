@@ -2,6 +2,7 @@
   <router-view />
 </template>
 
+
 <style>
 body {
   background: #f2f2f2;
