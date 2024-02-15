@@ -2,6 +2,11 @@
   <div class="project">
     <div class="actions">
       <h3 @click="toggleDetails">{{ project.title }}</h3>
+      <div class="icons">
+        <span class="material-symbols-outlined"> edit </span>
+        <span class="material-symbols-outlined"> delete </span>
+        <span class="material-symbols-outlined"> done </span>
+      </div>
     </div>
     <div v-if="showDetails" class="details">
       <p>{{ project.details }}</p>
@@ -45,5 +50,21 @@ export default {
 
 h3 {
   cursor: pointer;
+}
+.actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.material-symbols-outlined {
+  font-size: 24px;
+  margin-left: 10px;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.material-symbols-outlined:hover {
+  color: #777;
 }
 </style>
