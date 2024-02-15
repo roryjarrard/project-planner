@@ -1,5 +1,5 @@
 <template>
-  <div class="project">
+  <div class="project" :class="{ complete: project.complete }">
     <div class="actions">
       <h3 @click="toggleDetails">{{ project.title }}</h3>
       <div class="icons">
@@ -7,7 +7,7 @@
         <span @click="deleteProject" class="material-symbols-outlined">
           delete
         </span>
-        <span @click="toggleComplete" class="material-symbols-outlined">
+        <span @click="toggleComplete" class="material-symbols-outlined tick">
           done
         </span>
       </div>
@@ -69,6 +69,13 @@ export default {
   border-radius: 4px;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
   border-left: 4px solid #e90074;
+}
+.project.complete {
+  border-left: 4px solid #00ce89;
+}
+
+.project.complete .tick {
+  color: #00ce89;
 }
 
 h3 {
