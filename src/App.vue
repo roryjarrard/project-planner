@@ -1,7 +1,17 @@
 <template>
+  <Navbar />
   <router-view />
 </template>
 
+<script>
+import Navbar from "@/components/Navbar.vue";
+
+export default {
+  components: {
+    Navbar,
+  },
+};
+</script>
 
 <style>
 body {
@@ -14,5 +24,23 @@ body {
   max-width: 600px;
   margin: 0 auto;
   color: #555;
+}
+
+.main-nav {
+  text-align: center;
+  margin: 40px auto;
+}
+
+.main-nav a {
+  display: inline-block;
+  text-decoration: none;
+  margin: 0 10px;
+  color: #999;
+  font-size: 18px;
+}
+
+a.router-link-active {
+  border-bottom: 2px solid #00ce09;
+  padding-bottom: 4px;
 }
 </style>
