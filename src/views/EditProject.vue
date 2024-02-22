@@ -30,6 +30,25 @@ export default {
         this.details = data.details;
       });
   },
+
+  methods: {
+    handleSubmit() {
+      fetch(this.uri, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: this.title,
+          details: this.details,
+        }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          this.$router.push({ name: "Home" });
+        });
+    },
+  },
 };
 </script>
 
