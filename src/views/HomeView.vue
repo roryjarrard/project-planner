@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <FilterNav @filterChange="current = $event" :current="current" />
     <div v-if="projects.length">
       <h1>Projects</h1>
 
@@ -16,15 +17,17 @@
 
 <script>
 import SingleProject from "@/components/SingleProject.vue";
+import FilterNav from "@/components/FilterNav.vue";
 
 export default {
   name: "HomeView",
 
-  components: { SingleProject },
+  components: { SingleProject, FilterNav },
 
   data() {
     return {
       projects: [],
+      current: "all",
     };
   },
 
@@ -47,6 +50,21 @@ export default {
       let p = this.projects.find((project) => project.id === id);
       p.complete = !p.complete;
     },
+
+    updateFilter(by) {
+      if (by === "all") {
+        fetch("http://localhost:3000/projects")
+          .then((res) => res.json())
+          .then((data) => (this.projects = data));
+      } else {
+        fetch(`http://localhost:3000/projects?complete=${by}`)
+          .then((res) => res.json())
+          .then((data) => (this.projects = data));
+      }
+    },
   },
 };
 </script>
+
+<style scoped>
+</style>
