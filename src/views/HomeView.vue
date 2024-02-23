@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <FilterNav @filterChange="current = $event" :current="current" />
+    <FilterNav @filterChange="updateFilter" :current="current" />
     <div v-if="projects.length">
       <h1>Projects</h1>
 
@@ -52,12 +52,17 @@ export default {
     },
 
     updateFilter(by) {
+      this.current = by;
       if (by === "all") {
         fetch("http://localhost:3000/projects")
           .then((res) => res.json())
           .then((data) => (this.projects = data));
+      } else if (by === "completed") {
+        fetch(`http://localhost:3000/projects?complete=1`)
+          .then((res) => res.json())
+          .then((data) => (this.projects = data));
       } else {
-        fetch(`http://localhost:3000/projects?complete=${by}`)
+        fetch(`http://localhost:3000/projects?complete=0`)
           .then((res) => res.json())
           .then((data) => (this.projects = data));
       }
